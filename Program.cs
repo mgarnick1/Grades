@@ -25,10 +25,10 @@ namespace Grades
 		{
 
 
-			SpeechSynthesizer synth = new SpeechSynthesizer();
-			synth.Speak("Hello, World");
+			//SpeechSynthesizer synth = new SpeechSynthesizer();
+			//synth.Speak("Hello, World");
 
-			Arrays();
+			//Arrays();
 			//Immutable();
 			//PassByValueAndRef();
 			//string name1 = "Scott";
@@ -39,34 +39,85 @@ namespace Grades
 			//Console.WriteLine(areEqual);
 
 
-			//GradeBook book = new GradeBook();
-			//book.AddGrade(91);
-			//book.AddGrade(89.1f);
-			//book.AddGrade(75);
+			GradeBook book = new GradeBook("Scotts book");
+			book.AddGrade(91);
+			book.AddGrade(89.1f);
+			book.AddGrade(75);
 
-			//GradeStatistics stats = book.ComputeStatistics();
-			//Console.WriteLine(stats.AverageGrade);
-			//Console.WriteLine(stats.HighestGrade);
-			//Console.WriteLine(stats.LowestGrade);
+			GradeStatistics stats = book.ComputeStatistics();
+
+			book.NameChanged += OnNameChanged;
+			book.NameChanged += OnNameChanged2;
+			book.Name = "Allens book";
+			WriteNames(book.Name);
+			//int number = 20;
+			//WriteBytes(number);
+
+			//WriteBytes(stats.AverageGrade);
+
+			Console.WriteLine(stats.AverageGrade);
+			Console.WriteLine(stats.HighestGrade);
+			Console.WriteLine(stats.LowestGrade);
 
 			//GradeBook book2 = book;
 			//book2.AddGrade(75);
 		}
 
-		private static void Arrays()
+		private static void OnNameChanged2(object sender, NameChangedEventArgs args)
 		{
-			float[] grades;
-			grades = new float[3];
+			Console.WriteLine("*****");
+		}
 
-			
+		private static void OnNameChanged(object sender, NameChangedEventArgs args)
+		{
+			Console.WriteLine("Name changed from {0} to {1} ", 
+				args.OldValue, args.NewValue);
+		}
 
-			AddGrades(grades);
+		private static void WriteBytes(int value)
+		{
+			byte[] bytes = BitConverter.GetBytes(value);
+			WriteByteArray(bytes);
+		}
 
-			foreach(float grade in grades) 
+
+		private static void WriteBytes(float value)
+		{
+			byte[] bytes = BitConverter.GetBytes(value);
+			WriteByteArray(bytes);
+		}
+
+		private static void WriteByteArray(byte[] bytes)
+		{
+			foreach (byte b in bytes)
 			{
-				Console.WriteLine(grade);
+				Console.Write("0x{0:X} ", b);
+			}
+			Console.WriteLine();
+		}
+
+		private static void WriteNames(params string[] names )
+		{
+			foreach(string name in names)
+			{
+				Console.WriteLine(name);
 			}
 		}
+
+		//private static void Arrays()
+		//{
+		//	float[] grades;
+		//	grades = new float[3];
+
+
+
+		//	AddGrades(grades);
+
+		//	foreach(float grade in grades) 
+		//	{
+		//		Console.WriteLine(grade);
+		//	}
+		//}
 
 		private static void AddGrades(float[] grades)
 		{
