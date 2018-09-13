@@ -5,3 +5,4 @@ C:\Users\mgarn\OneDrive\Desktop\html and Javascript\C# folder\Grades\Grades\obj\
 C:\Users\mgarn\OneDrive\Desktop\html and Javascript\C# folder\Grades\Grades\obj\Debug\Grades.csproj.CoreCompileInputs.cache
 C:\Users\mgarn\OneDrive\Desktop\html and Javascript\C# folder\Grades\Grades\obj\Debug\Grades.exe
 C:\Users\mgarn\OneDrive\Desktop\html and Javascript\C# folder\Grades\Grades\obj\Debug\Grades.pdb
+C:\Users\mgarn\OneDrive\Desktop\html and Javascript\C# folder\Grades\Grades\bin\Debug\grades.txt

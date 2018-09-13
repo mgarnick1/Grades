@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Speech.Synthesis;
+using System.IO;
 
 namespace Grades
 {
@@ -40,15 +41,74 @@ namespace Grades
 
 
 			GradeBook book = new GradeBook("Scotts book");
-			book.AddGrade(91);
-			book.AddGrade(89.1f);
-			book.AddGrade(75);
+			//FileStream stream = null;
+			//StreamReader reader = null;
+
+			try
+			{
+				using (FileStream stream = File.Open("grades.txt", FileMode.Open))
+				using (StreamReader reader = new StreamReader(stream))
+				{
+				
+
+					string line = reader.ReadLine();
+					while (line != null)
+					{
+						float grade = float.Parse(line);
+						book.AddGrade(grade);
+						line = reader.ReadLine();
+					}
+
+
+					//string[] lines = File.ReadAllLines("grades.txt");
+					//foreach (string line in lines)
+					//{
+					//	float grade = float.Parse(line);
+					//	book.AddGrade(grade);
+					//}
+				}
+			}
+			catch (FileNotFoundException ex)
+			{
+				Console.WriteLine("Could not locate the file grades.txt, please check the name again!");
+				return;
+			}
+			catch(UnauthorizedAccessException ex)
+			{
+				Console.WriteLine("Sorry, you do not have access to the file.");
+				return;
+			}
+			//finally
+			//{
+			//	if(reader != null)
+			//	{
+			//		reader.Close();
+			//	}
+			//	if (stream != null)
+			//	{
+			//		stream.Close();
+			//	}
+			//}
+
+			//book.AddGrade(91);
+			//book.AddGrade(89.1f);
+			//book.AddGrade(75);
+			book.WriteGrades(Console.Out);
+			try
+			{
+				Console.WriteLine("Please enter a name for the book");
+				book.Name = Console.ReadLine();
+			}
+			catch(ArgumentException ex)
+			{
+				Console.WriteLine("Invalid name");
+			}
 
 			GradeStatistics stats = book.ComputeStatistics();
 
 			book.NameChanged += OnNameChanged;
 			book.NameChanged += OnNameChanged2;
-			book.Name = "Allens book";
+			//book.Name = "Allens book";
 			WriteNames(book.Name);
 			//int number = 20;
 			//WriteBytes(number);
@@ -58,6 +118,8 @@ namespace Grades
 			Console.WriteLine(stats.AverageGrade);
 			Console.WriteLine(stats.HighestGrade);
 			Console.WriteLine(stats.LowestGrade);
+			Console.WriteLine("{0} {1}",
+			stats.LetterGrade, stats.Description);
 
 			//GradeBook book2 = book;
 			//book2.AddGrade(75);
@@ -70,7 +132,7 @@ namespace Grades
 
 		private static void OnNameChanged(object sender, NameChangedEventArgs args)
 		{
-			Console.WriteLine("Name changed from {0} to {1} ", 
+			Console.WriteLine("Name changed from {0} to {1} ",  
 				args.OldValue, args.NewValue);
 		}
 
