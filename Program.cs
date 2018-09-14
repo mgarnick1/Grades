@@ -41,7 +41,11 @@ namespace Grades
 			//GradeBook book = new GradeBook("Scotts book");
 			//FileStream stream = null;
 			//StreamReader reader = null;
+
+
 			IGradeTracker book = CreateGradeBook();
+
+
 			//ThrowAwayGradeBook book = new ThrowAwayGradeBook("Scotts book");
 			try
 			{
@@ -93,8 +97,17 @@ namespace Grades
 			//book.AddGrade(91);
 			//book.AddGrade(89.1f);
 			//book.AddGrade(75);
-			book.DoSomething();
-			book.WriteGrades(Console.Out);
+
+
+
+			//book.DoSomething();
+			//book.WriteGrades(Console.Out);
+
+			foreach (float grade in book)	
+			{
+				Console.WriteLine(grade);
+			}	
+
 			try
 			{
 				//Console.WriteLine("Please enter a name for the book");
@@ -197,20 +210,20 @@ namespace Grades
 			}
 		}
 
-		private static void Immutable()
-		{
-			string name = " Scott ";
-			name = name.Trim();
-			//Console.WriteLine(name);
+		//private static void Immutable()
+		//{
+		//	string name = " Scott ";
+		//	name = name.Trim();
+		//	//Console.WriteLine(name);
 
-			//DateTime date = DateTime.Now;
-			DateTime date = new DateTime(2014, 1, 1);
+		//	//DateTime date = DateTime.Now;
+		//	DateTime date = new DateTime(2014, 1, 1);
 
-			date = date.AddHours(25);
+		//	date = date.AddHours(25);
 
-			Console.WriteLine(date);
-			Console.WriteLine(name);
-		}
+		//	Console.WriteLine(date);
+		//	Console.WriteLine(name);
+		//}
 
 		//private static void PassByValueAndRef()
 		//{
