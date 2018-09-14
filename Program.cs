@@ -24,8 +24,6 @@ namespace Grades
 
 		static void Main(string[] args)
 		{
-
-
 			//SpeechSynthesizer synth = new SpeechSynthesizer();
 			//synth.Speak("Hello, World");
 
@@ -40,16 +38,18 @@ namespace Grades
 			//Console.WriteLine(areEqual);
 
 
-			GradeBook book = new GradeBook("Scotts book");
+			//GradeBook book = new GradeBook("Scotts book");
 			//FileStream stream = null;
 			//StreamReader reader = null;
-
+			GradeTracker book = CreateGradeBook();
+			//ThrowAwayGradeBook book = new ThrowAwayGradeBook("Scotts book");
 			try
 			{
+
 				using (FileStream stream = File.Open("grades.txt", FileMode.Open))
 				using (StreamReader reader = new StreamReader(stream))
 				{
-				
+
 
 					string line = reader.ReadLine();
 					while (line != null)
@@ -68,12 +68,12 @@ namespace Grades
 					//}
 				}
 			}
-			catch (FileNotFoundException ex)
+			catch (FileNotFoundException)
 			{
 				Console.WriteLine("Could not locate the file grades.txt, please check the name again!");
 				return;
 			}
-			catch(UnauthorizedAccessException ex)
+			catch (UnauthorizedAccessException)
 			{
 				Console.WriteLine("Sorry, you do not have access to the file.");
 				return;
@@ -96,16 +96,15 @@ namespace Grades
 			book.WriteGrades(Console.Out);
 			try
 			{
-				Console.WriteLine("Please enter a name for the book");
-				book.Name = Console.ReadLine();
+				//Console.WriteLine("Please enter a name for the book");
+				//book.Name = Console.ReadLine();
 			}
-			catch(ArgumentException ex)
+			catch (ArgumentException)
 			{
 				Console.WriteLine("Invalid name");
 			}
 
 			GradeStatistics stats = book.ComputeStatistics();
-
 			book.NameChanged += OnNameChanged;
 			book.NameChanged += OnNameChanged2;
 			//book.Name = "Allens book";
@@ -123,6 +122,12 @@ namespace Grades
 
 			//GradeBook book2 = book;
 			//book2.AddGrade(75);
+		}
+
+		private static GradeTracker CreateGradeBook()
+		{
+			GradeTracker book = new ThrowAwayGradeBook("Scotts book");
+			return book;
 		}
 
 		private static void OnNameChanged2(object sender, NameChangedEventArgs args)
@@ -206,21 +211,21 @@ namespace Grades
 			Console.WriteLine(name);
 		}
 
-		private static void PassByValueAndRef()
-		{
-			GradeBook g1 = new GradeBook();
-			GradeBook g2 = g1;
+		//private static void PassByValueAndRef()
+		//{
+		//	GradeBook g1 = new GradeBook();
+		//	GradeBook g2 = g1;
 
-			GiveBookAName(ref g2);
-			Console.WriteLine(g2.Name);
+		//	GiveBookAName(ref g2);
+		//	Console.WriteLine(g2.Name);
 
-			g1 = new GradeBook();
+		//	g1 = new GradeBook();
 
-			//g1.Name = "Mark's book";
-			//Console.WriteLine(g2.Name);
-			int x1 = 4;
-			IncrementNumber(ref x1);
-			Console.WriteLine(x1);
-		}
+		//	//g1.Name = "Mark's book";
+		//	//Console.WriteLine(g2.Name);
+		//	int x1 = 4;
+		//	IncrementNumber(ref x1);
+		//	Console.WriteLine(x1);
+		//}
 	}
 }
