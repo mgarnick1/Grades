@@ -41,7 +41,7 @@ namespace Grades
 			//GradeBook book = new GradeBook("Scotts book");
 			//FileStream stream = null;
 			//StreamReader reader = null;
-			GradeTracker book = CreateGradeBook();
+			IGradeTracker book = CreateGradeBook();
 			//ThrowAwayGradeBook book = new ThrowAwayGradeBook("Scotts book");
 			try
 			{
@@ -93,6 +93,7 @@ namespace Grades
 			//book.AddGrade(91);
 			//book.AddGrade(89.1f);
 			//book.AddGrade(75);
+			book.DoSomething();
 			book.WriteGrades(Console.Out);
 			try
 			{
@@ -124,9 +125,9 @@ namespace Grades
 			//book2.AddGrade(75);
 		}
 
-		private static GradeTracker CreateGradeBook()
+		private static IGradeTracker CreateGradeBook()
 		{
-			GradeTracker book = new ThrowAwayGradeBook("Scotts book");
+			IGradeTracker book = new ThrowAwayGradeBook("Scotts book");
 			return book;
 		}
 

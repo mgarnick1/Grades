@@ -18,6 +18,11 @@ namespace Grades
 			_grades = new List<float>();
 		}
 
+		public override void DoSomething()
+		{
+			
+		}
+
 
 		public override void AddGrade( float  grade)
 		{

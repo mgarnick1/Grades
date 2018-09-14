@@ -7,7 +7,17 @@ using System.Threading.Tasks;
 
 namespace Grades
 {
-	public abstract class GradeTracker
+	public interface IGradeTracker 
+	{
+		void AddGrade(float grade);
+		GradeStatistics ComputeStatistics();
+		void WriteGrades(TextWriter textWriter);
+		string Name { get; set; }
+		event NamedChangedDelegate NameChanged;
+
+		void DoSomething();
+	}
+	public abstract class GradeTracker : IGradeTracker
 	{
 		public abstract void AddGrade(float grade);
 		public abstract GradeStatistics ComputeStatistics();
@@ -39,8 +49,8 @@ namespace Grades
 				}
 			}
 		}
-		
-		
+
+		public abstract void DoSomething();
 
 		public event NamedChangedDelegate NameChanged;
 
